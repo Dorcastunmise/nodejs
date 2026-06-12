@@ -1,0 +1,14 @@
+<%- include("partials/head") %>
+<body>
+  <br>
+  <%- include("partials/nav") %>
+
+  <h3> All Fruits <%= data %></h3>
+  <ol reversed>
+    <% for (const fruit of data) {  %>
+      <li><%= fruit  %></li>
+    <% } %>
+  </ol>
+</body>
+</html>
+

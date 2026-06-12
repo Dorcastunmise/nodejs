@@ -1,0 +1,19 @@
+<%- include("partials/head") %>
+<body>
+  <br>
+  <%- include("partials/nav") %> 
+  <br>
+  
+  <h1>Random EJS!!</h1>
+  <p>Genearting a random interger: <%= parsedInt %></p>
+  <p>
+    <% if(parsedInt % 2 == 0) {%>
+      <address> This random Integer is <b>Even</b> number</address>
+    <% } else {%>
+      <address> This random Integer is <b>Odd</b> number</address> 
+    <% } %>
+  </p>
+</body>
+</html>
+
+

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "express": "^5.2.1",
+    "superhero-name-library": "^1.2.2",
+    "validator": "^13.15.35"
+  }
+}

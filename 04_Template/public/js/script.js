@@ -1,0 +1,1 @@
+alert("Embedded script.js file");

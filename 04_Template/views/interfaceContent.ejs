@@ -1,0 +1,43 @@
+<%- include("partials/head") %>
+<body>
+  <br>
+  <%- include("partials/nav") %>
+  <br>
+  
+  <h1>Reddit <%= name %> Mimic</h1>
+  <p class="description"> This is a mimic of reddit homepage. <br>The data is being read from a JSON file and then parsed to be used in the EJS template. </p>
+
+  <div class="container">
+    <div class="metadata-box">
+      <h3>Subreddit Metadata</h3>
+      <ul>
+        <% Object.entries(locals).forEach(([key, value]) => { %>
+          <% // Filter out internal EJS objects and keys we handle specifically (posts and name) %>
+          <% if (!['settings', '_locals', 'cache', 'posts', 'name'].includes(key) && typeof value !== 'function') { %>
+            <li>
+              <strong><%= key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ') %>:</strong> <%= value %>
+            </li>
+          <% } %>
+        <% }) %>
+      </ul>
+    </div>
+
+    <h3>Posts</h3>
+    <% posts.forEach(post => { %>
+      <article>
+        <% Object.entries(post).forEach(([key, value]) => { %>
+          <% if (key === 'title') { %>
+            <h4 style="margin: 0 0 10px 0; color: #0079d3;"><%= value %></h4>
+            <h4><%= value %></h4>
+          <% } else if (key === 'image_url' || (typeof value === 'string' && value.match(/\.(jpeg|jpg|gif|png|webp)$/i))) { %>
+            <img src="<%= value %>" alt="Post content">
+          <% } else { %>
+            <p style="margin: 5px 0; font-size: 0.9em;"><strong><%= key.replace(/_/g, ' ') %>:</strong> <%= value %></p>
+          <% } %>
+        <% }) %>
+      </article>
+    <% }) %>
+  </div>
+
+</body>
+</html>

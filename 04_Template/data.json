@@ -1,0 +1,113 @@
+{
+    "sports": {
+        "name": "Sports",
+        "subscribers": 250000,
+        "description": "All about global sports events, news, and players.",
+        "posts": [
+            {
+                "title": "Usain Bolt’s 100m record still unbroken after 15 years",
+                "description": "The 9.58s record remains the gold standard in sprinting history, set during the 2009 Berlin World Championships.",
+                "author": "TrackMaster",
+                "image_url": "https://images.unsplash.com/photo-1526676317768-d9b14f15615a?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNhaW4lMjBib2x0fGVufDB8fDB8fHww"
+            },
+            {
+                "title": "LeBron James reaches 40,000 career points in NBA",
+                "description": "A feat thought impossible, the 'King' continues to defy age and expectations in his 21st season.",
+                "author": "HoopsFan",
+                "image_url": "https://images.unsplash.com/photo-1650308206396-4b20a1844355?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGVicm9uJTIwamFtZXN8ZW58MHx8MHx8fDA%3D"
+            },
+            {
+                "title": "India wins ICC Cricket World Cup 2023",
+                "description": "In a tournament of high drama, the final match showcased the peak of international cricket performance.",
+                "author": "CricketGuru",
+                "image_url": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y3JpY2tldHxlbnwwfHwwfHx8MA%3D%3D"
+            }
+        ]
+    },
+
+    "technology": {
+        "name": "Technology",
+        "subscribers": 310000,
+        "description": "Latest in gadgets, software, and tech innovations.",
+        "posts": [
+            {
+                "title": "Apple launches Vision Pro headset",
+                "description": "The era of spatial computing begins with a high-resolution headset integrating digital and physical reality.",
+                "author": "TechInsider",
+                "image_url": "https://images.unsplash.com/photo-1580894732444-8ecded7900fa?w=600&auto=format&fit=crop&q=60"
+            },
+            {
+                "title": "Google announces Android 15 with AI features",
+                "description": "Google’s latest OS iteration focuses on predictive tasks and generative AI tools powered by Gemini.",
+                "author": "CodeNinja",
+                "image_url": "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=600&auto=format&fit=crop&q=60"
+            },
+            {
+                "title": "Tesla unveils Optimus robot for households",
+                "description": "The Gen 2 humanoid robot demonstrated significant improvements in balance and tactile dexterity.",
+                "author": "Futurist101",
+                "image_url": "https://images.unsplash.com/photo-1581091215367-59ab6a6c0a0b?w=600&auto=format&fit=crop&q=60"
+            }
+        ]
+    },
+
+    "ai": {
+        "name": "Artificial Intelligence",
+        "subscribers": 180000,
+        "description": "Discussions and news about AI, ML, and automation.",
+        "posts": [
+            {
+                "title": "OpenAI releases GPT-5 with improved reasoning",
+                "description": "The new architecture aims to reduce hallucinations and tackle complex multi-step logical problems.",
+                "author": "AIResearcher",
+                "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=60"
+            },
+            {
+                "title": "DeepMind solves protein-folding for rare diseases",
+                "description": "AlphaFold 3 now predicts interactions between proteins and other molecule types with unprecedented accuracy.",
+                "author": "BioTechNerd",
+                "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=60"
+            },
+            {
+                "title": "AI beats world champion in complex real-time strategy game",
+                "description": "By mastering macro-management and micro-tactics, the agent proved AI can excel in chaotic environments.",
+                "author": "GameTheory",
+                "image_url": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=60"
+            }
+        ]
+    },
+
+    "gaming": {
+        "name": "Gaming",
+        "subscribers": 450000,
+        "description": "The central hub for all gaming news, leaks, reviews, and community discussion.",
+        "posts": [
+            {
+                "title": "GTA VI Trailer reaches 200 million views on YouTube",
+                "description": "The most anticipated game of the decade continues to shatter social media records.",
+                "author": "GamerNews",
+                "image_url": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=60"
+            },
+            {
+                "title": "Elden Ring: Shadow of the Erdtree Gameplay Revealed",
+                "description": "The new trailer shows off terrifying bosses and a massive new map for Tarnished to explore.",
+                "author": "SoulsLover",
+                "image_url": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=600&auto=format&fit=crop&q=60"
+            }
+        ]
+    },
+
+    "movies": {
+        "name": "Movies",
+        "subscribers": 220000,
+        "description": "Exploring the world of cinema, from blockbusters to indie darlings.",
+        "posts": [
+            {
+                "title": "Oppenheimer sweeps the 96th Academy Awards",
+                "description": "Christopher Nolan's epic biopic takes home Best Picture, Director, and Actor.",
+                "author": "CinemaBuff",
+                "image_url": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&auto=format&fit=crop&q=60"
+            }
+        ]
+    }
+}
