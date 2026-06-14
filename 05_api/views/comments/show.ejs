@@ -7,10 +7,17 @@
 </head>
 <body>
   <h1> Data requested:</h1>
-  <h5><%= each_comment.username %>: <%= each_comment.comments %></h5>
+  <div>
+    <h5><%= each_comment.username %>: <%= each_comment.comments %></h5>
 
-  <br><br>
-  <a href="/comments">Display all records</a>
-  <a href="/comments/new">Create records</a>
+    <br><br>
+    <a href="/comments">Display all records</a>
+    <a href="/comments/new">Create a new record</a>
+    <a href="/comments/<%= each_comment.id %>/edit">Edit record</a>
+    <form action="/comments/<%= each_comment.id %>?_method=DELETE" method="post">
+      <button>Delete record</button> 
+    </form>
+  </div>
+  
 </body>
 </html>

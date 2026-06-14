@@ -3,16 +3,15 @@ import {readFileSync} from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import {v4 as uuid} from "uuid";
-
+import methodOverride from "method-override";
 
 const PORT = 5500;
 const app = express();
 
+app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-
-const commentId = uuid();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,7 +31,7 @@ try {
   // If keys are already quoted, skip this step
   const jsonCompatible = rawData.replace(/(\w+)\s*:/g, '"$1":');
 
-  const commentData = JSON.parse(jsonCompatible);
+  let commentData = JSON.parse(jsonCompatible);
   //console.log(commentData);
 
   //All comments retrieval
@@ -48,7 +47,7 @@ try {
   //Comment creation
   app.post("/comments/new", (req, res)=> {
     const {username, comments} = req.body;
-    const newComment = { id: commentId, username, comments };
+    const newComment = { id: uuid(), username, comments };
     commentData.push(newComment);
     res.redirect("/comments");
   });
@@ -75,6 +74,20 @@ try {
     res.redirect("/comments");
   });
 
+  app.get("/comments/:id/edit", (req, res) => {
+    const {id} = req.params;
+    const each_comment = commentData.find((rec) => {
+      return rec.id == id; 
+    });
+
+    res.render("comments/edit", {each_comment});
+  });
+
+  app.delete("/comments/:id", (req, res) => {
+    const {id} = req.params;
+    commentData = commentData.filter((data) => String(data.id) !== id);
+    res.redirect("/comments");
+  });
 } catch (err) {
     console.error('Error reading or parsing file:', err.message);
 }
