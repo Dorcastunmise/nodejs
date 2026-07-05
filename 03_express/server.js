@@ -4,6 +4,47 @@
 import express from "express"; //  "type": "module",
 const app = express();
 const PORT = 3000;
+app.use(express.json());
+
+//
+let experts = [
+    {
+      title: "Politics",
+      experience: 15
+    },
+    {
+      title: "Football",
+      experience: 5
+    },
+    {
+      title: "Entrepreneur",
+      experience: 8
+    },
+    {
+      title: "Circus",
+      experience: 12
+    }
+  ];
+
+app.get("/careers", (req, res) => {
+  res.json(
+    { 
+      success: true,
+      data: experts,
+      total_roles: experts.length
+    });
+});
+
+app.get("/career_status", (req, res) => {
+  res
+  .status(300)
+  .json(
+    { 
+      success: true,
+      data: experts,
+      total_roles: experts.length
+    });
+});
 
 app.get("/", (req, res)=> {
   res.send("Hello and welcome to your first Express Server!");
@@ -48,7 +89,28 @@ app.get("/search", (req, res) => {
   res.send(`seaching for ... ${report} ... and ${section}...on page: ${page}`);
 });
 
+app.post("/careers", (req, res) => {
+  let data = req.body;
+  if(!data.title || !data.experience){
+    return 
+      res
+        .status(400)
+        .json({
+          message: "Career's title and experience are required fields"
+        })
+  }
 
-app.listen(PORT, () => {
+  experts.push(data);
+  res
+    .status(200)
+    .json({
+      success: true,
+      message: `Career records updated successfully! New career is ${data.title}`,
+      data: experts,
+      total_roles: experts.length
+    })
+});
+
+app.listen(PORT, '127.0.0.1', () => {
   console.log(`Server is listening at port ${PORT}`);
 });
