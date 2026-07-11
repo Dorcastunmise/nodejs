@@ -2,74 +2,28 @@
 //or
 
 import express from "express"; //  "type": "module",
+import {experts, companies} from "./data/data.js";
+import {customrouter, logger, blocker, setheader} from "./middlewares/custom.js";
 const app = express();
 const PORT = 3000;
+
 app.use(express.json());
+app.use(express.text());
+app.use(express.urlencoded({extended: true}));
+app.use(logger);
+app.use(blocker);
+app.use(setheader);
+app.use(customrouter);
+
 
 //
-let experts = [
-    {
-      title: "Politics",
-      experience: 15
-    },
-    {
-      title: "Football",
-      experience: 5
-    },
-    {
-      title: "Entrepreneur",
-      experience: 8
-    },
-    {
-      title: "Circus",
-      experience: 12
-    }
-  ];
-
-app.get("/careers", (req, res) => {
-  res.json(
-    { 
-      success: true,
-      data: experts,
-      total_roles: experts.length
-    });
+app.listen(PORT, '127.0.0.1', () => {
+  console.log(`Server is listening at port ${PORT}`);
 });
 
-app.get("/career_status", (req, res) => {
-  res
-  .status(300)
-  .json(
-    { 
-      success: true,
-      data: experts,
-      total_roles: experts.length
-    });
-});
 
-app.get("/", (req, res)=> {
-  res.send("Hello and welcome to your first Express Server!");
-});
 
-app.get("/dashboard", (req, res) => {
-  /*
-  res.send("Live Score Sheet");
-  res.send("<p>Live Score Sheet</p>");
-  res.sendFile("<p>Live Score Sheet</p>");
-  res.json({
-    name: "Timan",
-    duration: 7
-  });
-  res.cookie('name', 'tobi', {path: '/admin'});
-  res.clearcookie('name', {path: '/admin'});
-  res.status(200).send("Live Score Sheet");
-  */
-  res.send(Buffer.from("Live Score Sheet"));
-});
-
-app.get("/contact", (req, res) => {
- res.cookie('role', 'security', {path: '/admin'});
-});
-
+/*
 //dynamic routing
 app.get("/news/:topics/:sortby", (req, res) => {
   //let dynamic_url = req.params.topics;
@@ -89,28 +43,17 @@ app.get("/search", (req, res) => {
   res.send(`seaching for ... ${report} ... and ${section}...on page: ${page}`);
 });
 
-app.post("/careers", (req, res) => {
-  let data = req.body;
-  if(!data.title || !data.experience){
-    return 
-      res
-        .status(400)
-        .json({
-          message: "Career's title and experience are required fields"
-        })
-  }
 
-  experts.push(data);
-  res
-    .status(200)
-    .json({
-      success: true,
-      message: `Career records updated successfully! New career is ${data.title}`,
-      data: experts,
-      total_roles: experts.length
-    })
-});
+app.get("/get-careers", getCareerRoles);
+app.get("/careers", getCareers);
+app.get("/careers/:id", getEachExpertRec);
+app.get("/companies/:companyid/careers/:expertid", getCompanyExpert);
+app.get("/career_status", getCareerSta);
+app.get("/", home);
+app.get("/dashboard", dashboard);
+app.get("/contact", getContact);
+app.post("/careers", updateCareers);
+app.patch("/update-career/:id",updateCareer);
+app.delete("/delete-role", deleteCareer);
 
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`Server is listening at port ${PORT}`);
-});
+*/
