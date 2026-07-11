@@ -8,7 +8,7 @@ import {customrouter, logger, blocker, setheader} from "./middlewares/custom.js"
 
 dotenv.config();
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.text());
@@ -19,16 +19,21 @@ app.use(setheader);
 app.use(customrouter);
 
 //
-app.listen(PORT, '127.0.0.1', () => {
+const startServer = async () => {
   try {
-    conn(process.env.MONGODB_URI);
-    console.log("Connection successful!!");
-  } catch(err){
-    console.log("Connection failed due to: ", err);
-  }
-  console.log(`Server is listening at port ${PORT}`);
-});
+    await conn(process.env.MONGODB_URI);
+    console.log("Database connection established successfully.");
 
+    app.listen(PORT, '127.0.0.1', () => {
+      console.log(`Server is listening at port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Server initialization failed due to: ", err);
+    process.exit(1);
+  }
+};
+
+startServer();
 
 
 /*

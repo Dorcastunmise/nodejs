@@ -1,4 +1,4 @@
-import rolesRouter from "../routes/roles.js";
+import rolesRouter from "../routes/directories.js";
 const logger = (req, res, next) => {
   console.log("A customized middleware", req.method);
   next(); //to enable the program move to the next middleware

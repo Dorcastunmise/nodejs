@@ -1,9 +1,11 @@
 import Router from "express"; //or require("express").Router();
 import {dashboard, getCareerRoles, getContact, getCareers, getCareerSta, getEachExpertRec, home, updateCareers, updateCareer, deleteCareer } from "../controllers/experts.js";
-import {getCompanyExpert} from "../controllers/companies.js";
+//import {getCompanyExpert} from "../controllers/companies.js";
+import {createCompany, getCompanyById } from "../controllers/companies.js";
 
 const rolesRouter = Router();
 
+/*
 rolesRouter.get("/get-careers", getCareerRoles);
 rolesRouter.get("/careers", getCareers);
 rolesRouter.get("/careers/:id", getEachExpertRec);
@@ -15,5 +17,9 @@ rolesRouter.get("/contact", getContact);
 rolesRouter.post("/careers", updateCareers);
 rolesRouter.patch("/update-career/:id",updateCareer);
 rolesRouter.delete("/delete-role", deleteCareer);
+*/
+
+rolesRouter.post("/company/:id", getCompanyById);
+rolesRouter.post("/create-company", createCompany);
 
 export default rolesRouter;
