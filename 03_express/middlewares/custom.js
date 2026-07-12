@@ -1,4 +1,4 @@
-import rolesRouter from "../routes/directories.js";
+import compRolesRouter from "../routes/company_directories.js";
 const logger = (req, res, next) => {
   console.log("A customized middleware", req.method);
   next(); //to enable the program move to the next middleware
@@ -21,6 +21,6 @@ const setheader = (req, res, next) => {
   next();
 };
 //
-const customrouter = rolesRouter;
+const customrouter = compRolesRouter;
 
 export {customrouter, logger, blocker, setheader};

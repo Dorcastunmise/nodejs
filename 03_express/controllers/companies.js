@@ -35,6 +35,7 @@ export {getCompanyExpert};
 import Companies from "../model/CompanySchema.js";
 import {StatusCodes} from "http-status-codes";
 
+const allowedFields = ["name", "industry", "location", "founded", "employees"];
 
 //Real Implementation
 const CompanyModel = Companies;
@@ -101,4 +102,124 @@ const getCompanyById = async(req, res) => {
       });
   }
 }
-export { createCompany, getCompanyById};
+
+const getAllCompanies = async(req, res) => {
+  try {
+    const companies = await CompanyModel.find();
+    if (companies.length === 0) {
+      return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({
+        success: false,
+        message: "No companies found!"
+      })
+    }
+
+    return res
+    .status(StatusCodes.OK)
+    .json({
+      success: true,
+      message: "All companies retrieved successfully",
+      data: companies
+    });
+  } 
+  catch (error) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+        success: false,
+        message: "Database operation failed",
+        error: error.message
+      });
+  }
+}
+
+const deleteCompany = async(req, res) => {
+  const id = req.params.id;
+  try{
+    const selcompany = await CompanyModel.findByIdAndDelete(id);
+    if(!selcompany) {
+      return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({
+        success: false,
+        message: `Requested company's record (${id}) does not exist. Try again with another ID`
+      })
+    }
+
+    return res
+    .status(StatusCodes.OK)
+    .json({
+      success: true,
+      message: `Parsed company has been removed successfully!!`,
+      companies_rec: selcompany 
+    })
+  }
+  catch(err){
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+        success: false,
+        message: "Database operation failed",
+        error: err.message
+      });
+  }
+}
+
+
+const updateCompany = async(req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  const updates = {};
+   for (const key of allowedFields) {
+    if (data[key] !== undefined) {
+      updates[key] = data[key];
+    }
+  }
+  if (Object.keys(updates).length === 0) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      success: false,
+      message: "All fields must be provided to update"
+    });
+  }
+
+
+  try{
+    const selcompany = await CompanyModel.findByIdAndUpdate(id, updates, {new: true, runValidators: true});
+    console.log("updated company:", selcompany);
+    /* 
+      or
+        const selcompany = await CompanyModel.findById(id);
+        selcompany.name = data.name
+        await selcompany.save();
+
+    */
+    if(!selcompany) {
+      return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({
+        success: false,
+        message: `Requested company's record (${id}) does not exist. Try again with another ID`
+      })
+    }
+
+    return res
+    .status(StatusCodes.OK)
+    .json({
+      success: true,
+      message: `Parsed company has been updated successfully!!`,
+      companies_rec: selcompany 
+    })
+  }
+  catch(err){
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+        success: false,
+        message: "Database operation failed",
+        error: err.message
+      });
+  }
+}
+
+export { createCompany, getCompanyById, getAllCompanies, deleteCompany, updateCompany};

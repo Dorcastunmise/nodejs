@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-
 const conn = async(uri) => {
-  
+  try {
     await mongoose.connect(uri)
-    .then(() => {
-      console.log("Connected to MongoDB successful!");
-    })
+  } catch(err) {
+    console.log("Database connection failed!!", err);
+    throw err;
+  }
   
 }
 
-export default conn;
+export default conn

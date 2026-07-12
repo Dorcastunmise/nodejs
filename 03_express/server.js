@@ -3,8 +3,11 @@
 import conn from "./conn/connectdb.js";
 import dotenv from "dotenv";
 import express from "express"; //  "type": "module",
-import {experts, companies} from "./data/data.js";
+//import {companies} from "./data/data.js";
 import {customrouter, logger, blocker, setheader} from "./middlewares/custom.js";
+import notFound from "./middlewares/notFound.js";
+import boardDirectoriesRouter from "./routes/board_directories.js";
+import compRolesRouter from "./routes/company_directories.js";
 
 dotenv.config();
 const app = express();
@@ -17,23 +20,19 @@ app.use(logger);
 app.use(blocker);
 app.use(setheader);
 app.use(customrouter);
+app.use("/board",boardDirectoriesRouter); //  in postman, use http://localhost:3000/board/board-register to register a new board member
+app.use(notFound);
 
 //
-const startServer = async () => {
+app.listen(PORT, async () => {
   try {
+
+    console.log("Database connection pending...");
     await conn(process.env.MONGODB_URI);
-    console.log("Database connection established successfully.");
+    console.log("Database connection established successfully!!");
 
-    app.listen(PORT, '127.0.0.1', () => {
-      console.log(`Server is listening at port ${PORT}`);
-    });
-  } catch (err) {
-    console.error("Server initialization failed due to: ", err);
-    process.exit(1);
-  }
-};
-
-startServer();
+  } catch(err) {console.log("Database connection failed!!", err);}
+});
 
 
 /*
