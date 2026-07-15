@@ -32,6 +32,7 @@ const getCompanyExpert = (req, res) => {
 export {getCompanyExpert};
 */
 
+import Board from "../model/BoardSchema.js";
 import Companies from "../model/CompanySchema.js";
 import {StatusCodes} from "http-status-codes";
 
@@ -39,8 +40,12 @@ const allowedFields = ["name", "industry", "location", "founded", "employees"];
 
 //Real Implementation
 const CompanyModel = Companies;
+
 const createCompany = async(req, res) => {
   const data = req.body;
+  const boardId = req.user.id; 
+  console.log("req.user:", req.user);
+  console.log("boardId:", boardId);
   if(!data.name || !data.industry || !data.location || !data.founded || !data.employees) {
     return res
     .status(StatusCodes.BAD_REQUEST)
@@ -51,7 +56,23 @@ const createCompany = async(req, res) => {
   }
 
   try {
-    const newCompany = await CompanyModel.create(data);
+    
+    const boardMember = await Board.findById(boardId);
+    if(!boardMember) {
+      return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({
+        success: false,
+        message: `Board member with id [${boardId}] does not exist. Company cannot be created without a valid board member`
+      })
+    }
+
+    const newCompany = await CompanyModel.create({board: boardId, ...data});
+    if(!newCompany.board) {
+      newCompany.board = boardId;
+      await newCompany.save();
+    }
+
 
     return res
       .status(StatusCodes.CREATED)
@@ -120,6 +141,38 @@ const getAllCompanies = async(req, res) => {
     .json({
       success: true,
       message: "All companies retrieved successfully",
+      data: companies
+    });
+  } 
+  catch (error) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+        success: false,
+        message: "Database operation failed",
+        error: error.message
+      });
+  }
+}
+
+const getAllBoardCompanies = async(req, res) => {
+  try {
+    const boardId = req.user.id;
+    const companies = await CompanyModel.find({ board: boardId });
+    if (companies.length === 0) {
+      return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({
+        success: false,
+        message: "No companies found for the logged-in board member!"
+      })
+    }
+
+    return res
+    .status(StatusCodes.OK)
+    .json({
+      success: true,
+      message: "Board member's companies retrieved successfully",
       data: companies
     });
   } 
@@ -222,4 +275,4 @@ const updateCompany = async(req, res) => {
   }
 }
 
-export { createCompany, getCompanyById, getAllCompanies, deleteCompany, updateCompany};
+export { createCompany, getCompanyById, getAllCompanies, deleteCompany, updateCompany, getAllBoardCompanies};

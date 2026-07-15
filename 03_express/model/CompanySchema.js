@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const companySchema = new mongoose.Schema({
+  board: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"board",
+    required: [true, "Company must be associated with a board member"]
+  },
   name: {
     type: String,
     required: [true, "Company name is required"],

@@ -19,7 +19,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(logger);
 app.use(blocker);
 app.use(setheader);
+
 app.use(customrouter);
+app.use("/company",compRolesRouter);
 app.use("/board",boardDirectoriesRouter); //  in postman, use http://localhost:3000/board/board-register to register a new board member
 app.use(notFound);
 
